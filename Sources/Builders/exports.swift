@@ -6,6 +6,7 @@
 //
 
 @_exported import ArrayBuilder
+@_exported import DictionaryBuilder
 @_exported import SetBuilder
 @_exported import StringBuilder
 @_exported import MarkdownBuilder
