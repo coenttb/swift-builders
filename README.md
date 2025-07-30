@@ -4,12 +4,12 @@
   <img src="https://img.shields.io/badge/Swift-6.0-orange.svg" alt="Swift 6.0">
   <img src="https://img.shields.io/badge/Platforms-macOS%20|%20iOS%20|%20tvOS%20|%20watchOS%20|%20Linux-lightgray.svg" alt="Platforms">
   <img src="https://img.shields.io/badge/License-AGPL%203.0-blue.svg" alt="License">
-  <img src="https://img.shields.io/badge/Tests-144%20passing-green.svg" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-112%20passing-green.svg" alt="Tests">
 </p>
 
 <p align="center">
   <strong>Declarative collection and content builders for Swift</strong><br>
-  Create arrays, sets, strings, and markdown with SwiftUI-like result builder syntax
+  Create arrays, dictionaries, sets, strings, and markdown with SwiftUI-like result builder syntax
 </p>
 
 ## Overview
@@ -18,6 +18,7 @@
 
 ```swift
 import ArrayBuilder
+import DictionaryBuilder
 import StringBuilder
 import SetBuilder
 
@@ -53,6 +54,17 @@ let permissions = Set<Permission> {
     if user.isAdmin {
         [.admin, .delete]
     }
+}
+
+// Build type-safe dictionaries
+let configuration = Dictionary<String, String> {
+    ("host", serverHost)
+    ("port", "\(serverPort)")
+    if sslEnabled {
+        ("ssl", "true")
+        ("cert_path", certPath)
+    }
+    existingConfig // merge another dictionary
 }
 ```
 
@@ -207,6 +219,49 @@ let documentation = String(markdownWithParagraphs: {
         "1. \(step)"
     }
 })
+```
+
+### 🗂️ DictionaryBuilder
+
+Build dictionaries with type-safe key-value construction:
+
+```swift
+import DictionaryBuilder
+
+// Configuration dictionaries
+let serverConfig = Dictionary<String, String> {
+    ("host", "localhost")
+    ("port", "8080")
+    if enableSSL {
+        ("ssl", "true")
+        ("cert_path", "/path/to/cert.pem")
+    }
+    existingConfig // merge existing dictionary
+}
+
+// Using KeyValuePair for better readability
+let apiConfig = Dictionary<String, Any> {
+    KeyValuePair("timeout", 30)
+    KeyValuePair("retries", 3)
+    KeyValuePair("base_url", baseURL)
+    if isDebugMode {
+        KeyValuePair("debug", true)
+        KeyValuePair("verbose", true)
+    }
+}
+
+// Dynamic configuration
+let appSettings = Dictionary<String, String> {
+    ("app_name", appName)
+    ("version", appVersion)
+    for (key, value) in environmentVars {
+        (key.lowercased(), value)
+    }
+    if user.isPremium {
+        ("tier", "premium")
+        ("features", premiumFeatures.joined(separator: ","))
+    }
+}
 ```
 
 ### 🎯 SetBuilder
@@ -382,13 +437,82 @@ struct APIRouter {
 }
 ```
 
+### ⚙️ Dynamic Configuration System
+
+```swift
+import DictionaryBuilder
+
+struct ConfigurationManager {
+    let environment: Environment
+    let features: FeatureFlags
+    let secrets: SecretStore
+    
+    var databaseConfig: [String: Any] {
+        Dictionary {
+            ("host", environment.databaseHost)
+            ("port", environment.databasePort)
+            ("database", environment.databaseName)
+            
+            // Environment-specific settings
+            if environment.isProduction {
+                ("pool_size", 20)
+                ("timeout", 30)
+                ("ssl_mode", "require")
+            } else {
+                ("pool_size", 5)
+                ("timeout", 60)
+                ("ssl_mode", "prefer")
+            }
+            
+            // Feature flags
+            if features.enableReadReplicas {
+                ("read_replica_host", environment.readReplicaHost)
+                ("read_replica_port", environment.readReplicaPort)
+            }
+            
+            // Conditional authentication
+            if let credentials = secrets.databaseCredentials {
+                ("username", credentials.username)
+                ("password", credentials.password)
+            }
+            
+            // Merge existing configuration
+            environment.customDatabaseSettings
+        }
+    }
+    
+    var redisConfig: [String: String] {
+        Dictionary {
+            ("host", environment.redisHost)
+            ("port", "\(environment.redisPort)")
+            
+            if environment.isProduction {
+                ("cluster_mode", "true")
+                ("max_connections", "100")
+            }
+            
+            // Add authentication if available
+            if let auth = secrets.redisAuth {
+                ("password", auth)
+            }
+            
+            // Environment-specific overrides
+            for (key, value) in environment.redisOverrides {
+                (key, value)
+            }
+        }
+    }
+}
+```
+
 ## Architecture
 
-swift-builders provides six specialized result builders:
+swift-builders provides five specialized result builders:
 
 ```
 swift-builders
     ├── ArrayBuilder        → Generic array construction
+    ├── DictionaryBuilder   → Key-value pair construction
     ├── SetBuilder          → Unique element collections
     ├── StringBuilder       → Text content generation
     └── MarkdownBuilder     → Documentation and markup
@@ -398,7 +522,7 @@ Each builder is optimized for its specific use case while maintaining consistent
 
 ## Testing
 
-swift-builders includes comprehensive test coverage with 144+ tests:
+swift-builders includes comprehensive test coverage with 112+ tests:
 
 ```swift
 import Testing
