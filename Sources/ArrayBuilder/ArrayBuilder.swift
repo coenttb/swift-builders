@@ -1,56 +1,65 @@
 @resultBuilder
 public struct ArrayBuilder<Element> {
-    // MARK: - Expression Building
+    // MARK: - Expression Building (for type inference)
     
-    // This is key for type inference
     public static func buildExpression(_ expression: Element) -> [Element] {
         [expression]
     }
     
-    // Support for array expressions
     public static func buildExpression(_ expression: [Element]) -> [Element] {
         expression
     }
     
+    public static func buildExpression(_ expression: Element?) -> [Element] {
+        expression.map { [$0] } ?? []
+    }
+    
+    // MARK: - Core Building Blocks
+    
+    public static func buildPartialBlock(first: [Element]) -> [Element] {
+        first
+    }
+    
+    public static func buildPartialBlock(accumulated: [Element], next: [Element]) -> [Element] {
+        accumulated + next
+    }
+    
     // MARK: - Block Building
     
-    // Empty block
     public static func buildBlock() -> [Element] {
         []
     }
     
-    // Single element block
     public static func buildBlock(_ component: [Element]) -> [Element] {
         component
     }
     
-    // Multiple element block
     public static func buildBlock(_ components: [Element]...) -> [Element] {
         components.flatMap { $0 }
     }
     
     // MARK: - Control Flow
     
-    // Optional elements
+    public static func buildPartialBlock(first: Void) -> [Element] { [] }
+    
+    public static func buildPartialBlock(first: Never) -> [Element] { }
+    
     public static func buildOptional(_ component: [Element]?) -> [Element] {
         component ?? []
     }
     
-    // Conditional elements
-    public static func buildEither(first component: [Element]) -> [Element] {
-        component
+    public static func buildEither(first: [Element]) -> [Element] {
+        first
     }
     
-    public static func buildEither(second component: [Element]) -> [Element] {
-        component
+    public static func buildEither(second: [Element]) -> [Element] {
+        second
     }
     
-    // Arrays of elements
     public static func buildArray(_ components: [[Element]]) -> [Element] {
         components.flatMap { $0 }
     }
     
-    // Limited element
     public static func buildLimitedAvailability(_ component: [Element]) -> [Element] {
         component
     }
