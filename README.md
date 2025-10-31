@@ -501,7 +501,7 @@ All builder logic is resolved at compile time with zero runtime overhead. Perfor
 
 ## Related Packages
 
-Related result builder and HTML packages are available at [github.com/coenttb](https://github.com/coenttb).
+- [coenttb/swift-html](https://github.com/coenttb/swift-html) - Domain-accurate and type-safe HTML & CSS library that uses result builders for HTML construction
 
 ## Contributing
 
