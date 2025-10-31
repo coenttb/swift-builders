@@ -1,20 +1,13 @@
 # swift-builders
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Swift-6.0-orange.svg" alt="Swift 6.0">
-  <img src="https://img.shields.io/badge/Platforms-macOS%20|%20iOS%20|%20tvOS%20|%20watchOS%20|%20Linux-lightgray.svg" alt="Platforms">
-  <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
-  <img src="https://img.shields.io/badge/Tests-112%20passing-green.svg" alt="Tests">
-</p>
+[![CI](https://github.com/coenttb/swift-builders/workflows/CI/badge.svg)](https://github.com/coenttb/swift-builders/actions/workflows/ci.yml)
+![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
-<p align="center">
-  <strong>Declarative collection and content builders for Swift</strong><br>
-  Create arrays, dictionaries, sets, strings, and markdown with SwiftUI-like result builder syntax
-</p>
+Result builder DSL for creating arrays, dictionaries, sets, strings, and markdown in Swift.
 
 ## Overview
 
-**swift-builders** provides a comprehensive collection of Swift Result Builders that transform how you create and manipulate data structures. Using familiar SwiftUI-style syntax, build complex collections and content with type safety, performance optimization, and clean, readable code.
+swift-builders provides Swift result builders for declarative collection and content construction. Each builder supports conditionals, loops, and optional handling with compile-time type safety.
 
 ```swift
 import ArrayBuilder
@@ -68,37 +61,18 @@ let configuration = Dictionary<String, String> {
 }
 ```
 
-## Why swift-builders?
+## Features
 
-### 🏗️ Declarative Syntax
-- **SwiftUI-like patterns**: Familiar syntax for Swift developers
-- **Readable code**: Express intent clearly with minimal boilerplate
-- **Natural flow**: Write code that reads like the data structure you're building
+- **Five specialized builders**: Array, Dictionary, Set, String, and Markdown
+- **Control flow support**: if/else, switch, for-in, and optional handling
+- **Type-safe construction**: Full generic type inference and compile-time validation
+- **Zero runtime overhead**: All builder logic resolved at compile time
+- **112 test cases**: Covering basic functionality, control flow, edge cases, and performance
+- **Swift 5.10+ compatible**: Supports Swift 6.0 strict concurrency
 
-### 🛡️ Type Safety
-- **Compile-time validation**: Catch errors before runtime
-- **Generic support**: Full type inference and safety across all builders
-- **IDE integration**: Complete autocomplete and refactoring support
+## Installation
 
-### ⚡ Performance Optimized
-- **Zero overhead**: Compile-time transformations with no runtime cost
-- **Memory efficient**: Optimized operations avoid unnecessary allocations
-- **Scalable**: Tested with large datasets (1000+ elements)
-
-### 🔧 Production Ready
-- **Complete API coverage**: All Swift result builder methods implemented
-- **Comprehensive tests**: 144 tests covering edge cases and real-world usage
-- **Battle tested**: Used in production applications
-
-## Requirements
-
-- Swift 5.10+ (Full Swift 6.0 support)
-
-## Quick Start
-
-### Installation
-
-Add swift-builders to your Swift package:
+Add to your `Package.swift`:
 
 ```swift
 dependencies: [
@@ -106,9 +80,7 @@ dependencies: [
 ]
 ```
 
-For Xcode projects, add the package URL: `https://github.com/coenttb/swift-builders`
-
-### Your First Builder
+## Quick Start
 
 ```swift
 import ArrayBuilder
@@ -136,11 +108,9 @@ let menu = NavigationMenu(user: currentUser)
 print(menu.items) // ["Home", "About", "Dashboard", "Settings"]
 ```
 
-## Core Builders
+## Usage
 
-### 🔤 ArrayBuilder
-
-Build arrays with SwiftUI-like syntax:
+### ArrayBuilder
 
 ```swift
 import ArrayBuilder
@@ -160,9 +130,7 @@ let tableRows = Array<TableRow> {
 }
 ```
 
-### 📝 StringBuilder  
-
-Generate strings with automatic formatting:
+### StringBuilder
 
 ```swift
 import StringBuilder
@@ -191,9 +159,7 @@ let logEntry = String {
 }
 ```
 
-### 📄 MarkdownBuilder
-
-Create Markdown with intelligent formatting:
+### MarkdownBuilder
 
 ```swift
 import MarkdownBuilder
@@ -221,9 +187,7 @@ let documentation = String(markdownWithParagraphs: {
 })
 ```
 
-### 🗂️ DictionaryBuilder
-
-Build dictionaries with type-safe key-value construction:
+### DictionaryBuilder
 
 ```swift
 import DictionaryBuilder
@@ -264,9 +228,7 @@ let appSettings = Dictionary<String, String> {
 }
 ```
 
-### 🎯 SetBuilder
-
-Build sets with automatic deduplication:
+### SetBuilder
 
 ```swift
 import SetBuilder
@@ -292,9 +254,9 @@ let articleTags = Set<String> {
 }
 ```
 
-## Real-World Examples
+## Examples
 
-### 🏗️ API Response Building
+### API Response Building
 
 ```swift
 import ArrayBuilder
@@ -322,7 +284,7 @@ struct APIResponse {
 }
 ```
 
-### 📧 Email Template Generation
+### Email Template Generation
 
 ```swift
 import StringBuilder
@@ -362,7 +324,7 @@ struct WelcomeEmail {
 }
 ```
 
-### 🎮 Game Configuration
+### Game Configuration
 
 ```swift
 import SetBuilder
@@ -394,7 +356,7 @@ struct GameSession {
 }
 ```
 
-### 🌐 Server Route Configuration
+### Server Route Configuration
 
 ```swift
 import ArrayBuilder
@@ -437,7 +399,7 @@ struct APIRouter {
 }
 ```
 
-### ⚙️ Dynamic Configuration System
+### Dynamic Configuration System
 
 ```swift
 import DictionaryBuilder
@@ -522,91 +484,29 @@ Each builder is optimized for its specific use case while maintaining consistent
 
 ## Testing
 
-swift-builders includes comprehensive test coverage with 112+ tests:
-
-```swift
-import Testing
-import ArrayBuilder
-
-@Suite("ArrayBuilder Tests")
-struct ArrayBuilderTests {
-    @Test("Conditional arrays")
-    func conditionalArrays() {
-        let items = Array<String> {
-            "always"
-            if true { "conditional" }
-            for i in 1...3 { "item-\(i)" }
-        }
-        #expect(items.count == 5)
-    }
-}
-```
-
-**Test Coverage:**
-- ✅ Basic functionality for all builders
-- ✅ Control flow (conditionals, loops, optionals)
-- ✅ Edge cases and error conditions  
-- ✅ Performance characteristics
-- ✅ Real-world usage patterns
-
-Run tests with:
+Run tests:
 ```bash
 swift test
 ```
 
+The package includes 112 test cases covering:
+- Basic functionality for each builder
+- Control flow (conditionals, loops, optionals)
+- Edge cases (empty collections, type inference)
+- Performance with large datasets
+
 ## Performance
 
-All builders are optimized for production use with zero runtime overhead:
+All builder logic is resolved at compile time with zero runtime overhead. Performance tests verify consistent behavior with collections up to 1000+ elements.
 
-- **🚀 Compile-time**: All builder logic happens at compile time
-- **💾 Memory Efficient**: Optimized operations avoid unnecessary allocations
-- **📊 Scalable**: Tested with large datasets (1000+ elements)
-- **⚡ Fast**: Direct operations without intermediate transformations
+## Related Packages
 
-Benchmark results show consistent performance regardless of collection size.
-
-## Documentation
-
-Comprehensive documentation is available:
-
-- 📚 **[API Reference](Sources/)** - Complete API documentation
-- 🏗️ **[Builder Guides](Tests/)** - Detailed examples for each builder
-- 🎯 **[Best Practices](README.md#real-world-examples)** - Production patterns and tips
-- 🧪 **[Testing Examples](Tests/)** - How to test builder-based code
-
-## Support
-
-- 🐛 **[Issue Tracker](https://github.com/coenttb/swift-builders/issues)** - Report bugs or request features
-- 💬 **[Discussions](https://github.com/coenttb/swift-builders/discussions)** - Ask questions and share ideas
-- 📧 **[Newsletter](http://coenttb.com/en/newsletter/subscribe)** - Stay updated with new releases
-- 🐦 **[X (Twitter)](http://x.com/coenttb)** - Follow for updates
-- 💼 **[LinkedIn](https://www.linkedin.com/in/tenthijeboonkkamp)** - Connect professionally
+Related result builder and HTML packages are available at [github.com/coenttb](https://github.com/coenttb).
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Add tests for your changes
-4. Ensure all tests pass (`swift test`)
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+Contributions are welcome. For significant changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
-This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
-
-### Examples in Production
-
-- **[coenttb.com](https://github.com/coenttb/coenttb-com-server)** - Full website built using swift-builders
-  - Real-world usage patterns
-  - Production-ready architecture
-  - Performance optimizations
-
----
-
-<p align="center">
-  Made with ❤️ by <a href="https://coenttb.com">Coen ten Thije Boonkkamp</a><br>
-</p>
+Licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
