@@ -501,7 +501,7 @@ All builder logic is resolved at compile time with zero runtime overhead. Perfor
 
 ## Related Packages
 
-- [coenttb/swift-html](https://github.com/coenttb/swift-html) - Domain-accurate and type-safe HTML & CSS library that uses result builders for HTML construction
+- [coenttb/swift-html](https://github.com/coenttb/swift-html) - The Swift library for domain-accurate and type-safe HTML & CSS.
 
 ## Contributing
 
