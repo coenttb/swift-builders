@@ -27,7 +27,7 @@ struct ReadmeVerificationTests {
       Feature(menuTitle: "Help"),
     ]
 
-    let menuItems = [String] {
+    let menuItems: [String] = Array {
       "Home"
       "About"
       if user.isAuthenticated {
@@ -106,7 +106,7 @@ struct ReadmeVerificationTests {
     let certPath = "/path/to/cert"
     let existingConfig: [String: String] = ["timeout": "30"]
 
-    let configuration = [String: String] {
+    let configuration: [String: String] = Dictionary {
       ("host", serverHost)
       ("port", "\(serverPort)")
       if sslEnabled {
@@ -162,7 +162,7 @@ struct ReadmeVerificationTests {
     let condition = true
     let collection = ["item1", "item2"]
 
-    let items = [String] {
+    let items: [String] = Array {
       "Always included"
       if condition { "Conditional item" }
       for item in collection { item }
@@ -271,7 +271,7 @@ struct ReadmeVerificationTests {
     let enableSSL = true
     let existingConfig: [String: String] = ["log_level": "debug"]
 
-    let serverConfig = [String: String] {
+    let serverConfig: [String: String] = Dictionary {
       ("host", "localhost")
       ("port", "8080")
       if enableSSL {

@@ -9,7 +9,7 @@ struct BuildersTests {
 
     @Test("Simple array construction")
     func simpleArrayConstruction() {
-      let numbers = [Int] {
+      let numbers: [Int] = Array {
         1
         2
         3
@@ -20,7 +20,7 @@ struct BuildersTests {
     @Test("Conditional array construction")
     func conditionalArrayConstruction() {
       let includeOptional = true
-      let items = [String] {
+      let items: [String] = Array {
         "always"
         "included"
         if includeOptional {

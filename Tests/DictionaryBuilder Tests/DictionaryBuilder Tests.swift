@@ -14,7 +14,7 @@ struct DictionaryBuilderTests {
 
   @Test("Basic tuple construction")
   func basicTupleConstruction() {
-    let dict = [String: String] {
+    let dict: [String: String] = Dictionary {
       ("key", "value")
     }
     #expect(dict == ["key": "value"])
@@ -22,7 +22,7 @@ struct DictionaryBuilderTests {
 
   @Test("Multiple tuples")
   func multipleTuples() {
-    let dict = [String: Int] {
+    let dict: [String: Int] = Dictionary {
       ("a", 1)
       ("b", 2)
     }
@@ -31,7 +31,7 @@ struct DictionaryBuilderTests {
 
   @Test("KeyValuePair construction")
   func keyValuePairConstruction() {
-    let dict = [String: String] {
+    let dict: [String: String] = Dictionary {
       KeyValuePair("host", "localhost")
     }
     #expect(dict == ["host": "localhost"])
@@ -39,7 +39,7 @@ struct DictionaryBuilderTests {
 
   @Test("DictionaryLiteral construction")
   func dictionaryLiteralConstruction() {
-    let dict = [String: String] {
+    let dict: [String: String] = Dictionary {
       ["host": "localhost"]
     }
     #expect(dict == ["host": "localhost"])
@@ -48,7 +48,7 @@ struct DictionaryBuilderTests {
   @Test("Dictionary merging")
   func dictionaryMerging() {
     let existing = ["a": 1, "b": 2]
-    let dict = [String: Int] {
+    let dict: [String: Int] = Dictionary {
       existing
       ("c", 3)
     }
@@ -58,7 +58,7 @@ struct DictionaryBuilderTests {
   @Test("Conditional elements")
   func conditionalElements() {
     let includePort = true
-    let dict = [String: String] {
+    let dict: [String: String] = Dictionary {
       ("host", "localhost")
       if includePort {
         ("port", "8080")
@@ -69,7 +69,7 @@ struct DictionaryBuilderTests {
 
   @Test("Key override behavior")
   func keyOverrideBehavior() {
-    let dict = [String: String] {
+    let dict: [String: String] = Dictionary {
       ("key", "first")
       ("key", "second")
     }

@@ -17,7 +17,7 @@ struct ArrayBuilderTests {
 
     @Test("Single element expression")
     func singleElementExpression() {
-      let array = [Int] {
+      let array: [Int] = Array {
         42
       }
       #expect(array == [42])
@@ -25,7 +25,7 @@ struct ArrayBuilderTests {
 
     @Test("Array expression")
     func arrayExpression() {
-      let array = [Int] {
+      let array: [Int] = Array {
         [1, 2, 3]
       }
       #expect(array == [1, 2, 3])
@@ -33,7 +33,7 @@ struct ArrayBuilderTests {
 
     @Test("Mixed expressions")
     func mixedExpressions() {
-      let array = [Int] {
+      let array: [Int] = Array {
         1
         [2, 3]
         4
@@ -47,14 +47,14 @@ struct ArrayBuilderTests {
 
     @Test("Empty block")
     func emptyBlock() {
-      let array = [Int] {
+      let array: [Int] = Array {
       }
       #expect(array.isEmpty)
     }
 
     @Test("Single component block")
     func singleComponentBlock() {
-      let array = [String] {
+      let array: [String] = Array {
         "hello"
       }
       #expect(array == ["hello"])
@@ -62,7 +62,7 @@ struct ArrayBuilderTests {
 
     @Test("Multiple component block")
     func multipleComponentBlock() {
-      let array = [String] {
+      let array: [String] = Array {
         "hello"
         "world"
         "test"
@@ -72,7 +72,7 @@ struct ArrayBuilderTests {
 
     @Test("Nested arrays in block")
     func nestedArraysInBlock() {
-      let array = [Int] {
+      let array: [Int] = Array {
         [1, 2]
         [3, 4]
         [5, 6]
@@ -87,7 +87,7 @@ struct ArrayBuilderTests {
     @Test("Optional elements - some")
     func optionalElementsSome() {
       let shouldInclude = true
-      let array = [String] {
+      let array: [String] = Array {
         "always"
         if shouldInclude {
           "conditional"
@@ -100,7 +100,7 @@ struct ArrayBuilderTests {
     @Test("Optional elements - none")
     func optionalElementsNone() {
       let shouldInclude = false
-      let array = [String] {
+      let array: [String] = Array {
         "always"
         if shouldInclude {
           "conditional"
@@ -113,7 +113,7 @@ struct ArrayBuilderTests {
     @Test("If-else first branch")
     func ifElseFirstBranch() {
       let condition = true
-      let array = [String] {
+      let array: [String] = Array {
         if condition {
           "first"
         } else {
@@ -126,7 +126,7 @@ struct ArrayBuilderTests {
     @Test("If-else second branch")
     func ifElseSecondBranch() {
       let condition = false
-      let array = [String] {
+      let array: [String] = Array {
         if condition {
           "first"
         } else {
@@ -138,7 +138,7 @@ struct ArrayBuilderTests {
 
     @Test("For loop")
     func forLoop() {
-      let array = [Int] {
+      let array: [Int] = Array {
         for i in 1...3 {
           i * 2
         }
@@ -148,7 +148,7 @@ struct ArrayBuilderTests {
 
     @Test("Complex for loop with nested arrays")
     func complexForLoopWithNestedArrays() {
-      let array = [Int] {
+      let array: [Int] = Array {
         0
         for i in 1...2 {
           [i, i + 10]
@@ -164,7 +164,7 @@ struct ArrayBuilderTests {
 
     @Test("Limited availability passthrough")
     func limitedAvailabilityPassthrough() {
-      let array = [String] {
+      let array: [String] = Array {
         "available"
         if #available(iOS 13.0, *) {
           "newer"
@@ -199,7 +199,7 @@ struct ArrayBuilderTests {
 
     @Test("Mixed numeric types promote to common type")
     func mixedNumericTypes() {
-      let array = [Double] {
+      let array: [Double] = Array {
         1.0
         2.5
         3.0
@@ -217,7 +217,7 @@ struct ArrayBuilderTests {
       let b = false
       let c = true
 
-      let array = [String] {
+      let array: [String] = Array {
         "start"
         if a {
           "a-true"
@@ -237,7 +237,7 @@ struct ArrayBuilderTests {
 
     @Test("Empty arrays in builder")
     func emptyArraysInBuilder() {
-      let array = [Int] {
+      let array: [Int] = Array {
         [1, 2]
         []
         [3, 4]
@@ -248,7 +248,7 @@ struct ArrayBuilderTests {
 
     @Test("Large array construction")
     func largeArrayConstruction() {
-      let array = [Int] {
+      let array: [Int] = Array {
         for i in 1...100 {
           i
         }
@@ -260,7 +260,7 @@ struct ArrayBuilderTests {
 
     @Test("Alternating types with Optional")
     func alternatingTypesWithOptional() {
-      let array = [Int?] {
+      let array: [Int?] = Array {
         1
         nil
         2
@@ -277,7 +277,7 @@ struct ArrayBuilderTests {
     @Test("Builder doesn't create unnecessary intermediate arrays")
     func builderEfficiency() {
       // This test ensures that the builder flattens efficiently
-      let array = [Int] {
+      let array: [Int] = Array {
         [1, 2, 3]
         [4, 5, 6]
         [7, 8, 9]
